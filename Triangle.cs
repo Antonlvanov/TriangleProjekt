@@ -38,18 +38,18 @@ namespace Triangle
         public double GetSetB
         {
             get { return b; }
-            set { a = value; }
+            set { b = value; }
         }
         public double GetSetC
         {
             get { return c; }
-            set { a = value; }
+            set { c = value; }
         }
         public bool ExistTriangle
         {
             get
             {
-                if ((a > b + c) && (b > a + c) && (c > a + b))
+                if ((a + b > c && a + c > b && b + c > a))
                     return true;
                 return false;
             }
