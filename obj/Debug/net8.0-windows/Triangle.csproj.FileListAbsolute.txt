@@ -1,0 +1,14 @@
+C:\Users\opilane\source\repos\Anton I\Triangle\bin\Debug\net8.0-windows\Triangle.exe
+C:\Users\opilane\source\repos\Anton I\Triangle\bin\Debug\net8.0-windows\Triangle.deps.json
+C:\Users\opilane\source\repos\Anton I\Triangle\bin\Debug\net8.0-windows\Triangle.runtimeconfig.json
+C:\Users\opilane\source\repos\Anton I\Triangle\bin\Debug\net8.0-windows\Triangle.dll
+C:\Users\opilane\source\repos\Anton I\Triangle\bin\Debug\net8.0-windows\Triangle.pdb
+C:\Users\opilane\source\repos\Anton I\Triangle\obj\Debug\net8.0-windows\Triangle.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\opilane\source\repos\Anton I\Triangle\obj\Debug\net8.0-windows\Triangle.AssemblyInfoInputs.cache
+C:\Users\opilane\source\repos\Anton I\Triangle\obj\Debug\net8.0-windows\Triangle.AssemblyInfo.cs
+C:\Users\opilane\source\repos\Anton I\Triangle\obj\Debug\net8.0-windows\Triangle.csproj.CoreCompileInputs.cache
+C:\Users\opilane\source\repos\Anton I\Triangle\obj\Debug\net8.0-windows\Triangle.dll
+C:\Users\opilane\source\repos\Anton I\Triangle\obj\Debug\net8.0-windows\refint\Triangle.dll
+C:\Users\opilane\source\repos\Anton I\Triangle\obj\Debug\net8.0-windows\Triangle.pdb
+C:\Users\opilane\source\repos\Anton I\Triangle\obj\Debug\net8.0-windows\Triangle.genruntimeconfig.cache
+C:\Users\opilane\source\repos\Anton I\Triangle\obj\Debug\net8.0-windows\ref\Triangle.dll
