@@ -9,36 +9,34 @@ namespace Triangle
         private Button createTriangle;
         private Graphics triangleImage;
         private NumericUpDown a_input, b_input, c_input;
-        private Label a_label, b_label, c_label, Perimeter, Surface;
+        private Label a_label, b_label, c_label;
         private TableLayoutPanel trianglePanel = new TableLayoutPanel();
         private TableLayoutPanel mainPanel = new TableLayoutPanel();
         private Triangle currentTriangle;
         private TableLayoutPanel inputPanel = new TableLayoutPanel();
+        private ListView triangleInfoView;
         public TriangleWindow()
         {
             this.Width = 800;
             this.Height = 500;
             this.FormBorderStyle = FormBorderStyle.Fixed3D;
             this.BackColor = Color.LightGray;
+            this.Text = "Triangle";
 
-            createTriangle = new Button();
-            createTriangle.Text = "Make triangle";
-            createTriangle.UseVisualStyleBackColor = true;
-            createTriangle.Click += new EventHandler(CreateTriangle_Click);
-
+            triangleInfoView = new ListView();
             var inputPanel = new TableLayoutPanel();
-            Perimeter = new Label();
-            Surface = new Label();
             a_input = new NumericUpDown();
             b_input = new NumericUpDown();
             c_input = new NumericUpDown();
             a_label = new Label();
             b_label = new Label();
             c_label = new Label();
+            createTriangle = new Button();
+
+            createTriangle.Click += new EventHandler(CreateTriangle_Click);
+            trianglePanel.Paint += TrianglePanel_Paint;
 
             InitialSetup();
-
-            trianglePanel.Paint += TrianglePanel_Paint;
         }
 
         private void InitialSetup()
@@ -53,16 +51,23 @@ namespace Triangle
             trianglePanel.BackColor = Color.White;
 
             inputPanel.Dock = DockStyle.Fill;
-            inputPanel.SetColumnSpan(createTriangle, 2);
             inputPanel.ColumnCount = 2;
-            inputPanel.RowCount = 4; // 3 rows for inputs, 1 for button
+            inputPanel.RowCount = 2; // 3 rows for inputs, 1 for button
+            inputPanel.SetColumnSpan(createTriangle, 2);
+            inputPanel.SetColumnSpan(triangleInfoView, 2);
 
-            createTriangle.Anchor = AnchorStyles.None | AnchorStyles.Top;
-            createTriangle.AutoSize = true;
+            createTriangle.Text = "Make triangle";
+            createTriangle.UseVisualStyleBackColor = true;
 
-            a_label.Text = "Side A:";
-            b_label.Text = "Side B:";
-            c_label.Text = "Side C:";
+            triangleInfoView.View = View.Details;
+            triangleInfoView.FullRowSelect = true;
+            triangleInfoView.Columns.Add("Parameter", 150);
+            triangleInfoView.Columns.Add("Value", 100);
+            triangleInfoView.Dock = DockStyle.Fill;
+
+            a_label.Text = "a:";
+            b_label.Text = "b:";
+            c_label.Text = "c:";
             a_label.Font = new Font("Arial", 12);
             b_label.Font = new Font("Arial", 12);
             c_label.Font = new Font("Arial", 12);
@@ -71,20 +76,8 @@ namespace Triangle
             b_input.Font = new Font("Arial", 11);
             c_input.Font = new Font("Arial", 11);
 
-            // perimeter and surface
-            Perimeter.Text = "Perimeter: ";
-            Perimeter.Font = new Font("Arial", 14); 
-            Perimeter.ForeColor = Color.Black; 
-            Perimeter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            Perimeter.AutoSize = true;
-            Perimeter.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-
-            Surface.Text = "Surface: ";
-            Surface.Font = new Font("Arial", 14); 
-            Surface.ForeColor = Color.Black; 
-            Surface.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            Surface.AutoSize = true;
-            Surface.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            createTriangle.Anchor = AnchorStyles.None | AnchorStyles.Top;
+            createTriangle.AutoSize = true;
 
             // labels to align with input fields
             a_label.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -103,12 +96,9 @@ namespace Triangle
             inputPanel.Controls.Add(c_label, 0, 2);
             inputPanel.Controls.Add(c_input, 1, 2);
 
-            inputPanel.Controls.Add(Perimeter, 0, 4);
-            inputPanel.SetColumnSpan(Perimeter, 2);
-            inputPanel.Controls.Add(Surface, 0, 5);
-            inputPanel.SetColumnSpan(Surface, 2);
-
             inputPanel.Controls.Add(createTriangle, 0, 3);
+
+            inputPanel.Controls.Add(triangleInfoView, 0, 4);
 
             mainPanel.Controls.Add(trianglePanel, 1, 0);
             mainPanel.Controls.Add(inputPanel, 0, 0);
@@ -118,8 +108,6 @@ namespace Triangle
 
         private void CreateTriangle_Click(object sender, EventArgs e)
         {
-            DeleteTempFiles();
-
             double a = (double)a_input.Value;
             double b = (double)b_input.Value;
             double c = (double)c_input.Value;
@@ -130,8 +118,9 @@ namespace Triangle
             // check for unequal sides
             if (currentTriangle.ExistTriangle)
             {
-                CalculateAndDisplayTriangleData(triangle);
+                DisplayTriangleInfo(triangle);
                 trianglePanel.Invalidate(); // updating drawing
+                DeleteTempFiles();
             }
             else
             {
@@ -139,13 +128,6 @@ namespace Triangle
                 currentTriangle = null;
                 trianglePanel.Invalidate();
             }
-        }
-
-        private void CalculateAndDisplayTriangleData(Triangle triangle)
-        {
-            // showing perimeter and surface
-            Perimeter.Text = $"Perimeter: {triangle.Perimeter():F2}";
-            Surface.Text = $"Surface: {triangle.Surface():F2}";
         }
 
         private void TrianglePanel_Paint(object sender, PaintEventArgs e)
@@ -202,18 +184,8 @@ namespace Triangle
             g.DrawLine(pen, p2, p3);
             g.DrawLine(pen, p3, p1);
 
-            Font font = new Font("Arial", 12, FontStyle.Bold);
-            Brush brush = new SolidBrush(Color.Black);
-
-            // finding points for signs
-            PointF midAB = new PointF((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2 + 10); 
-            PointF midBC = new PointF((p2.X + p3.X) / 2 + 20, (p2.Y + p3.Y) / 2); 
-            PointF midCA = new PointF((p3.X + p1.X) / 2 - 30, (p3.Y + p1.Y) / 2);
-
-            // draw signs for sides
-            g.DrawString("A", font, brush, midBC.X, midBC.Y); // A
-            g.DrawString("B", font, brush, midCA.X, midCA.Y); // B
-            g.DrawString("C", font, brush, midAB.X, midAB.Y); // C
+            // draw signs
+            DrawSideSigns(p1, p2, p3, g);
         }
 
 
@@ -244,9 +216,36 @@ namespace Triangle
             return new PointF(p3X, p3Y);
         }
 
-        public void DrawSideSigns()
+        public void DrawSideSigns(PointF p1, PointF p2, PointF p3, Graphics g)
         {
+            Font font = new Font("Arial", 12, FontStyle.Bold);
+            Brush brush = new SolidBrush(Color.Black);
 
+            // finding points for signs
+            PointF midAB = new PointF((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2 + 10);
+            PointF midBC = new PointF((p2.X + p3.X) / 2 + 20, (p2.Y + p3.Y) / 2);
+            PointF midCA = new PointF((p3.X + p1.X) / 2 - 30, (p3.Y + p1.Y) / 2);
+
+            // draw signs for sides
+            g.DrawString("a", font, brush, midAB.X, midAB.Y); // a
+            g.DrawString("b", font, brush, midCA.X, midCA.Y); // b
+            g.DrawString("c", font, brush, midBC.X, midBC.Y); // c
+        }
+
+        private void DisplayTriangleInfo(Triangle triangle)
+        {
+            triangleInfoView.Items.Clear();
+
+            triangleInfoView.Items.Add(new ListViewItem(new string[] { "Side a", triangle.GetSetA.ToString() }));
+            triangleInfoView.Items.Add(new ListViewItem(new string[] { "Side b", triangle.GetSetB.ToString() }));
+            triangleInfoView.Items.Add(new ListViewItem(new string[] { "Side c", triangle.GetSetC.ToString() }));
+
+            triangleInfoView.Items.Add(new ListViewItem(new string[] { "Angle A", triangle.AngleA.ToString("F2") + "°" }));
+            triangleInfoView.Items.Add(new ListViewItem(new string[] { "Angle B", triangle.AngleB.ToString("F2") + "°" }));
+            triangleInfoView.Items.Add(new ListViewItem(new string[] { "Angle C", triangle.AngleC.ToString("F2") + "°" }));
+
+            triangleInfoView.Items.Add(new ListViewItem(new string[] { "Perimeter", triangle.Perimeter().ToString("F2") }));
+            triangleInfoView.Items.Add(new ListViewItem(new string[] { "Surface", triangle.Surface().ToString("F2") }));
         }
 
         private void DeleteTempFiles()
