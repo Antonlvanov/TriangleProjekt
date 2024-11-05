@@ -79,11 +79,8 @@ namespace Triangle
             b_label.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             c_label.TextAlign = System.Drawing.ContentAlignment.BottomRight;
 
-            a_input.Minimum = int.MinValue;
             a_input.Maximum = int.MaxValue;
-            b_input.Minimum = int.MinValue;
             b_input.Maximum = int.MaxValue;
-            c_input.Minimum = int.MinValue;
             c_input.Maximum = int.MaxValue;
 
             // controls
@@ -124,7 +121,7 @@ namespace Triangle
 
         private void CreateTriangle_Click(object sender, EventArgs e)
         {
-            DeleteOldFiles();
+            DeleteTempFiles();
 
             double a = (double)a_input.Value;
             double b = (double)b_input.Value;
@@ -171,16 +168,12 @@ namespace Triangle
             float panelHeight = trianglePanel.ClientSize.Height;
 
             // indents from panel edges
-            float margin = 0.35f * Math.Min(panelWidth, panelHeight);
-
-            // calculating max triangle size for panel size
-            float maxWidth = panelWidth - 2 * margin;
-            float maxHeight = panelHeight - 2 * margin;
+            float margin = 0.33f * Math.Min(panelWidth, panelHeight);
 
             // calculating surface size scale to fit triangle
-            float scale = Math.Min(maxWidth / (float)triangle.a, maxHeight / (float)triangle.b);
+            float scale = CalculateScale(triangle, panelWidth, panelHeight, margin);
 
-            // finding triangle points to fit current size with panel
+            // finding new triangle drawing points
             PointF p1 = new PointF(margin, panelHeight - margin); // lower left 
             PointF p2 = new PointF(margin + (float)triangle.a * scale, panelHeight - margin); //  lower right
             // finding 3rd point of triangle with current scale
@@ -191,11 +184,47 @@ namespace Triangle
             );
 
             // drawing
-            g.DrawLine(Pens.Black, p1, p2);
-            g.DrawLine(Pens.Black, p2, p3);
-            g.DrawLine(Pens.Black, p3, p1);
+            Pen pen = new Pen(Color.FromArgb(0, 0, 0), 4);
+            g.DrawLine(pen, p1, p2);
+            g.DrawLine(pen, p2, p3);
+            g.DrawLine(pen, p3, p1);
         }
-        private void DeleteOldFiles()
+
+        private float CalculateScale(Triangle triangle, float panelWidth, float panelHeight, float margin)
+        {
+            float maxWidth = panelWidth - 2 * margin;
+            float maxHeight = panelHeight - 2 * margin;
+
+            float maxSide = (float)Math.Max(triangle.GetSetA, Math.Max(triangle.GetSetB, triangle.GetSetC));
+
+            return Math.Min(maxWidth / maxSide, maxHeight / maxSide);
+        }
+
+        private PointF CalculateThirdPoint(Triangle triangle, float scale)
+        {
+            float a_scaled = (float)triangle.GetSetA * scale;
+            float b_scaled = (float)triangle.GetSetB * scale;
+
+            float p1X = 0;
+            float p1Y = 0;
+
+            float p2X = a_scaled;
+            float p2Y = 0;
+
+            float p3X = b_scaled * (float)Math.Cos(triangle.AngleC);
+            float p3Y = b_scaled * (float)Math.Sin(triangle.AngleC);
+
+            return new PointF(p3X, p3Y);
+        }
+
+
+
+        public void DrawSideSigns()
+        {
+
+        }
+
+        private void DeleteTempFiles()
         {
             string path = AppDomain.CurrentDomain.BaseDirectory; 
             string[] oldFiles = Directory.GetFiles(path, "*.TMP");
