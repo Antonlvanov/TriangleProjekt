@@ -13,6 +13,7 @@ namespace Triangle
         private TableLayoutPanel trianglePanel = new TableLayoutPanel();
         private TableLayoutPanel mainPanel = new TableLayoutPanel();
         private Triangle currentTriangle;
+        private TableLayoutPanel inputPanel = new TableLayoutPanel();
         public TriangleWindow()
         {
             this.Width = 800;
@@ -25,6 +26,7 @@ namespace Triangle
             createTriangle.UseVisualStyleBackColor = true;
             createTriangle.Click += new EventHandler(CreateTriangle_Click);
 
+            var inputPanel = new TableLayoutPanel();
             Perimeter = new Label();
             Surface = new Label();
             a_input = new NumericUpDown();
@@ -50,6 +52,14 @@ namespace Triangle
             trianglePanel.Dock = DockStyle.Fill;
             trianglePanel.BackColor = Color.White;
 
+            inputPanel.Dock = DockStyle.Fill;
+            inputPanel.SetColumnSpan(createTriangle, 2);
+            inputPanel.ColumnCount = 2;
+            inputPanel.RowCount = 4; // 3 rows for inputs, 1 for button
+
+            createTriangle.Anchor = AnchorStyles.None | AnchorStyles.Top;
+            createTriangle.AutoSize = true;
+
             a_label.Text = "Side A:";
             b_label.Text = "Side B:";
             c_label.Text = "Side C:";
@@ -63,16 +73,18 @@ namespace Triangle
 
             // perimeter and surface
             Perimeter.Text = "Perimeter: ";
-            Surface.Text = "Surface: ";
             Perimeter.Font = new Font("Arial", 14); 
             Perimeter.ForeColor = Color.Black; 
-            Perimeter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter; 
+            Perimeter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            Perimeter.AutoSize = true;
+            Perimeter.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+
+            Surface.Text = "Surface: ";
             Surface.Font = new Font("Arial", 14); 
             Surface.ForeColor = Color.Black; 
-            Surface.TextAlign = System.Drawing.ContentAlignment.MiddleCenter; 
-            Perimeter.AutoSize = true;
+            Surface.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             Surface.AutoSize = true;
-
+            Surface.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
 
             // labels to align with input fields
             a_label.TextAlign = System.Drawing.ContentAlignment.BottomRight;
@@ -84,14 +96,6 @@ namespace Triangle
             c_input.Maximum = int.MaxValue;
 
             // controls
-
-            mainPanel.Controls.Add(trianglePanel, 1, 0);
-
-            var inputPanel = new TableLayoutPanel();
-            inputPanel.Dock = DockStyle.Fill;
-            inputPanel.ColumnCount = 2;
-            inputPanel.RowCount = 4; // 3 rows for inputs, 1 for button
-
             inputPanel.Controls.Add(a_label, 0, 0);
             inputPanel.Controls.Add(a_input, 1, 0);
             inputPanel.Controls.Add(b_label, 0, 1);
@@ -99,19 +103,12 @@ namespace Triangle
             inputPanel.Controls.Add(c_label, 0, 2);
             inputPanel.Controls.Add(c_input, 1, 2);
 
-            inputPanel.Controls.Add(createTriangle, 0, 3);
-            inputPanel.SetColumnSpan(createTriangle, 2);
-            createTriangle.Anchor = AnchorStyles.None | AnchorStyles.Top;
-            createTriangle.AutoSize = true;
-
             inputPanel.Controls.Add(Perimeter, 0, 4);
             inputPanel.SetColumnSpan(Perimeter, 2);
             inputPanel.Controls.Add(Surface, 0, 5);
             inputPanel.SetColumnSpan(Surface, 2);
 
-            // Центрируем лейблы
-            Perimeter.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            Surface.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            inputPanel.Controls.Add(createTriangle, 0, 3);
 
             mainPanel.Controls.Add(trianglePanel, 1, 0);
             mainPanel.Controls.Add(inputPanel, 0, 0);
@@ -163,32 +160,62 @@ namespace Triangle
         {
             g.Clear(Color.White);
 
-            // setting panel size
+            // getting panel size
             float panelWidth = trianglePanel.ClientSize.Width;
             float panelHeight = trianglePanel.ClientSize.Height;
 
             // indents from panel edges
-            float margin = 0.33f * Math.Min(panelWidth, panelHeight);
+            float margin = 0.1f * Math.Min(panelWidth, panelHeight);
+            float centerX = panelWidth / 2;
+            float centerY = panelHeight / 2;
 
-            // calculating surface size scale to fit triangle
+            // calculating surface size scale to fit panel
             float scale = CalculateScale(triangle, panelWidth, panelHeight, margin);
 
-            // finding new triangle drawing points
-            PointF p1 = new PointF(margin, panelHeight - margin); // lower left 
-            PointF p2 = new PointF(margin + (float)triangle.a * scale, panelHeight - margin); //  lower right
-            // finding 3rd point of triangle with current scale
+            // finding new adjested triangle drawing points
+            PointF p1 = new PointF(0, 0); //  lower left 
+            PointF p2 = new PointF((float)triangle.a * scale, 0); // lower right
+
+            // finding 3rd point of triangle with current scale and angle
             float angle = (float)Math.Acos((Math.Pow(triangle.a, 2) + Math.Pow(triangle.b, 2) - Math.Pow(triangle.c, 2)) / (2 * triangle.a * triangle.b));
             PointF p3 = new PointF(
-                p1.X + (float)(triangle.b * scale * Math.Cos(angle)),
-                p1.Y - (float)(triangle.b * scale * Math.Sin(angle))
+                (float)(triangle.b * scale * Math.Cos(angle)),
+                -(float)(triangle.b * scale * Math.Sin(angle))
             );
 
-            // drawing
-            Pen pen = new Pen(Color.FromArgb(0, 0, 0), 4);
+            // finding panel center
+            float triangleCenterX = (p1.X + p2.X + p3.X) / 3;
+            float triangleCenterY = (p1.Y + p2.Y + p3.Y) / 3;
+
+            // adjusting offset to fit panel center
+            float offsetX = centerX - triangleCenterX;
+            float offsetY = centerY - triangleCenterY;
+
+            // adjusting triangle points by offset
+            p1 = new PointF(p1.X + offsetX, p1.Y + offsetY);
+            p2 = new PointF(p2.X + offsetX, p2.Y + offsetY);
+            p3 = new PointF(p3.X + offsetX, p3.Y + offsetY);
+
+            // draw
+            Pen pen = new Pen(Color.Black, 2);
             g.DrawLine(pen, p1, p2);
             g.DrawLine(pen, p2, p3);
             g.DrawLine(pen, p3, p1);
+
+            Font font = new Font("Arial", 12, FontStyle.Bold);
+            Brush brush = new SolidBrush(Color.Black);
+
+            // finding points for signs
+            PointF midAB = new PointF((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2 + 10); 
+            PointF midBC = new PointF((p2.X + p3.X) / 2 + 20, (p2.Y + p3.Y) / 2); 
+            PointF midCA = new PointF((p3.X + p1.X) / 2 - 30, (p3.Y + p1.Y) / 2);
+
+            // draw signs for sides
+            g.DrawString("A", font, brush, midBC.X, midBC.Y); // A
+            g.DrawString("B", font, brush, midCA.X, midCA.Y); // B
+            g.DrawString("C", font, brush, midAB.X, midAB.Y); // C
         }
+
 
         private float CalculateScale(Triangle triangle, float panelWidth, float panelHeight, float margin)
         {
@@ -216,8 +243,6 @@ namespace Triangle
 
             return new PointF(p3X, p3Y);
         }
-
-
 
         public void DrawSideSigns()
         {
