@@ -54,22 +54,19 @@ namespace Triangle
 
         private void DetermineTriangleType()
         {
-            // Сначала проверяем, равносторонний ли треугольник
             if (IsEquilateral)
             {
-                Type = TriangleType.Equilateral;  // Равносторонний
-                return; // Выходим, так как равносторонний треугольник не будет равнобедренным или разносторонним
+                Type = TriangleType.Equilateral;  
+                return; 
             }
 
-            // Теперь проверяем, равнобедренный ли треугольник
             if (IsIsosceles)
             {
-                Type = TriangleType.Isosceles;  // Равнобедренный
+                Type = TriangleType.Isosceles; 
                 return;
             }
 
-            // Если треугольник не равнобедренный, он разносторонний
-            Type = TriangleType.Scalene;  // Разносторонний
+            Type = TriangleType.Scalene;
         }
 
 
