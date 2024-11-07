@@ -129,6 +129,7 @@ namespace Triangle
             {
                 DisplayTriangleInfo(triangle);
                 trianglePanel.Invalidate(); // updating drawing
+                triangle.SaveDataXML();
                 DeleteTempFiles();
             }
             else
@@ -197,6 +198,7 @@ namespace Triangle
 
             // draw signs
             DrawSideSigns(p1, p2, p3, g);
+            triangle.SaveDataXML();
         }
 
 
@@ -261,8 +263,8 @@ namespace Triangle
             triangleInfoView.Items.Add(new ListViewItem(["Angle B", triangle.AngleB.ToString("F2") + "°"]));
             triangleInfoView.Items.Add(new ListViewItem(["Angle C", triangle.AngleC.ToString("F2") + "°"]));
 
-            triangleInfoView.Items.Add(new ListViewItem(["Perimeter", triangle.Perimeter().ToString("F2")]));
-            triangleInfoView.Items.Add(new ListViewItem(["Surface", triangle.Surface().ToString("F2")]));
+            triangleInfoView.Items.Add(new ListViewItem(["Perimeter", triangle._perimeter.ToString("F2")]));
+            triangleInfoView.Items.Add(new ListViewItem(["Surface", triangle._surface.ToString("F2")]));
 
             triangleInfoView.Items.Add(new ListViewItem(["Type", triangle.TypeRusky()]));
 
