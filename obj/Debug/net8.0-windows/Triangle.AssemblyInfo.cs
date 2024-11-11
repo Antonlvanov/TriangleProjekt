@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Triangle")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a62282608ec35140ea2b8b5b7701a976315475ff")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1282c6b498e95d871b6daa53290441a6d2916f56")]
 [assembly: System.Reflection.AssemblyProductAttribute("Triangle")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Triangle")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

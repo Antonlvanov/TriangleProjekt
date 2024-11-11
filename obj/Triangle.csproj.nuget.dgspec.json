@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Anton\\Source\\Repos\\TriangleProjekt\\Triangle.csproj": {}
+    "C:\\Users\\Anton\\source\\repos\\TriangleProjekt\\Triangle.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Anton\\Source\\Repos\\TriangleProjekt\\Triangle.csproj": {
+    "C:\\Users\\Anton\\source\\repos\\TriangleProjekt\\Triangle.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Anton\\Source\\Repos\\TriangleProjekt\\Triangle.csproj",
+        "projectUniqueName": "C:\\Users\\Anton\\source\\repos\\TriangleProjekt\\Triangle.csproj",
         "projectName": "Triangle",
-        "projectPath": "C:\\Users\\Anton\\Source\\Repos\\TriangleProjekt\\Triangle.csproj",
+        "projectPath": "C:\\Users\\Anton\\source\\repos\\TriangleProjekt\\Triangle.csproj",
         "packagesPath": "C:\\Users\\Anton\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Anton\\Source\\Repos\\TriangleProjekt\\obj\\",
+        "outputPath": "C:\\Users\\Anton\\source\\repos\\TriangleProjekt\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -49,6 +49,12 @@
       "frameworks": {
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

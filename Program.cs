@@ -1,3 +1,6 @@
+using System.Windows.Forms;
+using System;
+
 namespace Triangle
 {
     internal static class Program
@@ -13,7 +16,7 @@ namespace Triangle
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             ApplicationConfiguration.Initialize();
-            Application.Run(new TriangleWindow());
+            Application.Run(new Window());
         }
     }
 }
