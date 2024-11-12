@@ -11,6 +11,7 @@ namespace Triangle.TriangleObject
         private Math _math;
         public DataManager dataManager;
 
+
         public Triangle(double A, double B, double C)
         {
             a = A; b = B; c = C;
@@ -57,10 +58,10 @@ namespace Triangle.TriangleObject
                 Type = TriangleType.Equilateral;
             else if (math.IsIsosceles())
                 Type = TriangleType.Isosceles;
-            else if (math.IsScalene())
-                Type = TriangleType.Scalene;
             else if (math.IsRight())
                 Type = TriangleType.Right;
+            else if (math.IsScalene())
+                Type = TriangleType.Scalene;
             else
                 Type = TriangleType.NotExist;
         }
@@ -73,10 +74,10 @@ namespace Triangle.TriangleObject
                     return "Равносторонний";
                 case TriangleType.Isosceles:
                     return "Равнобедренный";
-                case TriangleType.Scalene:
-                    return "Разносторонний";
                 case TriangleType.Right:
                     return "Прямоугольный";
+                case TriangleType.Scalene:
+                    return "Разносторонний";
                 default:
                     return "Не существует";
             }

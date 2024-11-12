@@ -4,7 +4,7 @@ namespace Triangle
 {
     public partial class Window
     {
-        public void ConfigureWindow(Window window)
+        public static void ConfigureWindow(Window window)
         {
             window.Width = 800;
             window.Height = 500;
@@ -36,12 +36,12 @@ namespace Triangle
             if (this.c.Triangle.ExistTriangle)
             {
                 this.c.DataManager.DisplayTriangleInfo();
+                this.c.DataManager.SaveDataXML();
                 this.c.UI.TrianglePanel.Invalidate();
             }
             else
             {
                 MessageBox.Show("Треугольник с такими сторонами не может существовать", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.c.UI.TrianglePanel.Invalidate();
             }
         }
 

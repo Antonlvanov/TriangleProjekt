@@ -2,7 +2,7 @@
 {
     public partial class Window : Form
     {
-        private readonly Context c;
+        private Context c;
         public Window()
         {
             c = new Context();

@@ -2,17 +2,12 @@
 
 namespace Triangle.Interface
 {
-    public class Drawer
+    public class Drawer(Context context)
     {
-        private readonly Context c;
+        private readonly Context c = context;
         private float scale;
         private PointF[] points;
         private PointF p1, p2, p3;
-
-        public Drawer(Context context)
-        {
-            this.c = context;
-        }
 
         public void DrawTriangle(Graphics graphics)
         {
@@ -32,20 +27,17 @@ namespace Triangle.Interface
         private void CalculateTrianglePoints(TriangleObject.Triangle triangle)
         {
             float a = triangle.SideA, b = triangle.SideB, c = triangle.SideC;
-            float angleAB = triangle.AngleAB;
+            float AB_angle = (float)Math.Acos(
+                (Math.Pow(a, 2) + Math.Pow(b, 2) - Math.Pow(c, 2)) / (2 * a * b)
+            );
 
             scale = CalculateMarginScale();
 
             p1 = new PointF(0, 0); 
             p2 = new PointF(a * scale, 0);
-
-            float angle = (float)Math.Acos(
-                (Math.Pow(a, 2) + Math.Pow(b, 2) - Math.Pow(c, 2)) / (2 * a * b)
-            );
-
             p3 = new PointF(
-                b * scale * (float)Math.Cos(angle),
-                b * scale * (float)Math.Sin(angle)
+                p1.X + b * scale * (float)Math.Cos(AB_angle),
+                p1.Y - b * scale * (float)Math.Sin(AB_angle) 
             );
 
             CenterTriangleOnPanel();
@@ -91,9 +83,9 @@ namespace Triangle.Interface
             Font font = new Font("Arial", 12, FontStyle.Bold);
             Brush brush = new SolidBrush(Color.Black);
 
-            graphics.DrawString("A", font, brush, (p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
-            graphics.DrawString("B", font, brush, (p2.X + p3.X) / 2, (p2.Y + p3.Y) / 2);
-            graphics.DrawString("C", font, brush, (p3.X + p1.X) / 2, (p3.Y + p1.Y) / 2);
+            graphics.DrawString("A", font, brush, (p1.X + p2.X) / 2 - 20, (p1.Y + p2.Y) / 2);
+            graphics.DrawString("B", font, brush, (p3.X + p1.X) / 2 - 20, (p3.Y + p1.Y) / 2 );
+            graphics.DrawString("С", font, brush, (p2.X + p3.X) / 2 + 10, (p2.Y + p3.Y) / 2);
         }
 
         private void DrawGrid(Graphics graphics)

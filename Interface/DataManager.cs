@@ -3,14 +3,9 @@ using static Triangle.Window;
 
 namespace Triangle.Interface
 {
-    public class DataManager
+    public class DataManager(Context context)
     {
-        private readonly Context c;
-
-        public DataManager(Context context)
-        {
-            this.c = context;
-        }
+        private readonly Context c = context;
 
         public void DisplayTriangleInfo()
         {
@@ -44,7 +39,7 @@ namespace Triangle.Interface
                 return;
             }
 
-            string filePath = @"..\..\data.xml";
+            string filePath = @"..\..\..\data.xml";
             XmlWriterSettings settings = new XmlWriterSettings
             {
                 Indent = true,
@@ -66,7 +61,15 @@ namespace Triangle.Interface
                 }
                 doc.Load(filePath);
 
+                //index
+                int index = doc.DocumentElement.SelectNodes("Triangle").Count + 1;
                 XmlElement triangleElem = doc.CreateElement("Triangle");
+                triangleElem.SetAttribute("Index", index.ToString());
+                //date time 
+                XmlElement dateTimeElem = doc.CreateElement("DateTime");
+                dateTimeElem.InnerText = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                triangleElem.AppendChild(dateTimeElem);
+
                 string[] fieldNames = { "SideA", "SideB", "SideC", "AngleAB", "AngleBC", "AngleAC", "Perimeter", "Surface", "Type" };
                 object[] fieldValues =
                 {
@@ -78,7 +81,7 @@ namespace Triangle.Interface
                     triangle._angleAC,
                     triangle._perimeter,
                     triangle._surface,
-                    triangle.TypeRusky()
+                    triangle.Type
                 };
 
                 for (int i = 0; i < fieldValues.Length; i++)
