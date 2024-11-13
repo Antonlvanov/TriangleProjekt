@@ -31,3 +31,5 @@ C:\Users\Anton\Source\Repos\TriangleProjekt\obj\Debug\net8.0-windows\Triangle.cs
 C:\Users\Anton\Source\Repos\TriangleProjekt\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\Anton\Source\Repos\TriangleProjekt\bin\Debug\net8.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\Anton\Source\Repos\TriangleProjekt\obj\Debug\net8.0-windows\Triangle.csproj.Up2Date
+C:\Users\Anton\Source\Repos\TriangleProjekt\obj\Debug\net8.0-windows\Triangle.Form1.resources
+C:\Users\Anton\Source\Repos\TriangleProjekt\obj\Debug\net8.0-windows\Triangle.csproj.GenerateResource.cache

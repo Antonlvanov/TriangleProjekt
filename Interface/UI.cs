@@ -15,6 +15,8 @@
         public Label TitleLabel { get; set; }
         public Button CreateTriangle { get; set; }
 
+        public virtual TableLayoutPanel GetMainPanel() => MainPanel;
+
         public UI()
         {
             MainPanel = new TableLayoutPanel();
@@ -22,14 +24,15 @@
             TrianglePanel = new TableLayoutPanel();
 
             TriangleInfoView = new ListView();
+
             A_input = new NumericUpDown();
             B_input = new NumericUpDown();
             C_input = new NumericUpDown();
 
+            TitleLabel = new Label();
             A_label = new Label();
             B_label = new Label();
             C_label = new Label();
-            TitleLabel = new Label();
 
             CreateTriangle = new Button();
         }

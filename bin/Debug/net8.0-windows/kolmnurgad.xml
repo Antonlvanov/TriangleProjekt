@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Triangles>
+  <Triangle Index="1">
+    <DateTime>2024-11-12 21:58:14</DateTime>
+    <SideA>3</SideA>
+    <SideB>4</SideB>
+    <SideC>5</SideC>
+    <AngleAB>53,13010235415599</AngleAB>
+    <AngleBC>36,86989764584401</AngleBC>
+    <AngleAC>90</AngleAC>
+    <Perimeter>12</Perimeter>
+    <Surface>6</Surface>
+    <Type>Right</Type>
+  </Triangle>
+  <Triangle Index="2">
+    <DateTime>2024-11-12 22:04:23</DateTime>
+    <SideA>3</SideA>
+    <SideB>4</SideB>
+    <SideC>5</SideC>
+    <AngleAB>53,13010235415599</AngleAB>
+    <AngleBC>36,86989764584401</AngleBC>
+    <AngleAC>90</AngleAC>
+    <Perimeter>12</Perimeter>
+    <Surface>6</Surface>
+    <Type>Right</Type>
+  </Triangle>
+  <Triangle Index="3">
+    <DateTime>2024-11-12 22:05:44</DateTime>
+    <SideA>3</SideA>
+    <SideB>4</SideB>
+    <SideC>5</SideC>
+    <AngleAB>53,13010235415599</AngleAB>
+    <AngleBC>36,86989764584401</AngleBC>
+    <AngleAC>90</AngleAC>
+    <Perimeter>12</Perimeter>
+    <Surface>6</Surface>
+    <Type>Right</Type>
+  </Triangle>
+  <Triangle Index="4">
+    <DateTime>2024-11-12 22:06:47</DateTime>
+    <SideA>3</SideA>
+    <SideB>4</SideB>
+    <SideC>5</SideC>
+    <AngleAB>53,13010235415599</AngleAB>
+    <AngleBC>36,86989764584401</AngleBC>
+    <AngleAC>90</AngleAC>
+    <Perimeter>12</Perimeter>
+    <Surface>6</Surface>
+    <Type>Right</Type>
+  </Triangle>
+  <Triangle Index="5">
+    <DateTime>2024-11-12 22:44:41</DateTime>
+    <SideA>3,00</SideA>
+    <SideB>4,00</SideB>
+    <SideC>5,00</SideC>
+    <AngleAB>53,13</AngleAB>
+    <AngleBC>36,87</AngleBC>
+    <AngleAC>90,00</AngleAC>
+    <Perimeter>12,00</Perimeter>
+    <Surface>6,00</Surface>
+    <Type>T&amp;#228;isnurkne</Type>
+  </Triangle>
+  <Triangle Index="6">
+    <DateTime>2024-11-13 13:22:13</DateTime>
+    <SideA>3</SideA>
+    <SideB>4</SideB>
+    <SideC>5</SideC>
+    <AngleAB>53,13</AngleAB>
+    <AngleBC>36,87</AngleBC>
+    <AngleAC>90,00</AngleAC>
+    <Perimeter>12</Perimeter>
+    <Surface>6</Surface>
+    <Type>T&amp;#228;isnurkne</Type>
+  </Triangle>
+  <Triangle Index="7">
+    <DateTime>2024-11-13 13:22:34</DateTime>
+    <SideA>6</SideA>
+    <SideB>7</SideB>
+    <SideC>6</SideC>
+    <AngleAB>71,37</AngleAB>
+    <AngleBC>54,31</AngleBC>
+    <AngleAC>54,31</AngleAC>
+    <Perimeter>19</Perimeter>
+    <Surface>17,056890103415686</Surface>
+    <Type>V&amp;#245;rdhaarne</Type>
+  </Triangle>
+  <Triangle Index="8">
+    <DateTime>2024-11-13 13:23:34</DateTime>
+    <SideA>4</SideA>
+    <SideB>5</SideB>
+    <SideC>6</SideC>
+    <AngleAB>55,77</AngleAB>
+    <AngleBC>41,41</AngleBC>
+    <AngleAC>82,82</AngleAC>
+    <Perimeter>15,00</Perimeter>
+    <Surface>9,92</Surface>
+    <Type>Teravnurkne</Type>
+  </Triangle>
+  <Triangle Index="9">
+    <DateTime>2024-11-13 13:24:33</DateTime>
+    <SideA>3</SideA>
+    <SideB>4</SideB>
+    <SideC>5</SideC>
+    <AngleAB>53,13</AngleAB>
+    <AngleBC>36,87</AngleBC>
+    <AngleAC>90,00</AngleAC>
+    <Perimeter>12</Perimeter>
+    <Surface>6,00</Surface>
+    <Type>T&amp;#228;isnurkne</Type>
+  </Triangle>
+  <Triangle Index="10">
+    <DateTime>2024-11-13 13:27:02</DateTime>
+    <SideA>4</SideA>
+    <SideB>5</SideB>
+    <SideC>6</SideC>
+    <AngleAB>55,77</AngleAB>
+    <AngleBC>41,41</AngleBC>
+    <AngleAC>82,82</AngleAC>
+    <Perimeter>15</Perimeter>
+    <Surface>9,92</Surface>
+    <Type>Teravnurkne</Type>
+  </Triangle>
+  <Triangle Index="11">
+    <DateTime>2024-11-13 13:27:15</DateTime>
+    <SideA>3</SideA>
+    <SideB>4</SideB>
+    <SideC>5</SideC>
+    <AngleAB>53,13</AngleAB>
+    <AngleBC>36,87</AngleBC>
+    <AngleAC>90,00</AngleAC>
+    <Perimeter>12</Perimeter>
+    <Surface>6,00</Surface>
+    <Type>T&amp;#228;isnurkne</Type>
+  </Triangle>
+  <Triangle Index="12">
+    <DateTime>2024-11-13 13:29:30</DateTime>
+    <SideA>4</SideA>
+    <SideB>5</SideB>
+    <SideC>6</SideC>
+    <AngleAB>55,77</AngleAB>
+    <AngleBC>41,41</AngleBC>
+    <AngleAC>82,82</AngleAC>
+    <Perimeter>15</Perimeter>
+    <Surface>9,92</Surface>
+    <Type>Teravnurkne</Type>
+  </Triangle>
+  <Triangle Index="13">
+    <DateTime>2024-11-13 13:30:41</DateTime>
+    <SideA>3</SideA>
+    <SideB>4</SideB>
+    <SideC>5</SideC>
+    <AngleAB>53,13</AngleAB>
+    <AngleBC>36,87</AngleBC>
+    <AngleAC>90,00</AngleAC>
+    <Perimeter>12</Perimeter>
+    <Surface>6,00</Surface>
+    <Type>T&amp;#228;isnurkne</Type>
+  </Triangle>
+  <Triangle Index="14">
+    <DateTime>2024-11-13 13:30:54</DateTime>
+    <SideA>34</SideA>
+    <SideB>56</SideB>
+    <SideC>45</SideC>
+    <AngleAB>89,16</AngleAB>
+    <AngleBC>37,38</AngleBC>
+    <AngleAC>53,46</AngleAC>
+    <Perimeter>135</Perimeter>
+    <Surface>764,92</Surface>
+    <Type>Teravnurkne</Type>
+  </Triangle>
+  <Triangle Index="15">
+    <DateTime>2024-11-13 13:32:36</DateTime>
+    <SideA>3</SideA>
+    <SideB>4</SideB>
+    <SideC>5</SideC>
+    <AngleAB>53,13&amp;#176;</AngleAB>
+    <AngleBC>36,87&amp;#176;</AngleBC>
+    <AngleAC>90,00&amp;#176;</AngleAC>
+    <Perimeter>12</Perimeter>
+    <Surface>6,00</Surface>
+    <Type>T&amp;#228;isnurkne</Type>
+  </Triangle>
+  <Triangle Index="16">
+    <DateTime>2024-11-13 13:50:58</DateTime>
+    <Side_A>3</Side_A>
+    <Side_B>4</Side_B>
+    <Side_C>5</Side_C>
+    <Angle_AB>53,13&amp;#176;</Angle_AB>
+    <Angle_BC>36,87&amp;#176;</Angle_BC>
+    <Angle_AC>90,00&amp;#176;</Angle_AC>
+    <Height_A>4</Height_A>
+    <Height_B>3</Height_B>
+    <Height_C>2,4</Height_C>
+    <Perimeter>12</Perimeter>
+    <Surface>6,00</Surface>
+    <Type>T&amp;#228;isnurkne</Type>
+  </Triangle>
+</Triangles>

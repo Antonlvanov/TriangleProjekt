@@ -1,9 +1,15 @@
 ﻿using _triangle = Triangle.TriangleObject.Triangle;
+using Triangle.Interface;
 
 namespace Triangle
 {
     public partial class Window
     {
+        private UI Interface = new Init_UI();
+        private DataManager dataManager = new DataManager();
+        private Drawer drawer = new Drawer();
+        private _triangle triangle;
+
         public static void ConfigureWindow(Window window)
         {
             window.Width = 800;
@@ -13,44 +19,41 @@ namespace Triangle
             window.Text = "Triangle";
         }
 
-        private void InitializeUI()
+        private void Initialize()
         {
-            c.InitInterface.SetupUI();
-            Controls.Add(c.UI.MainPanel);
-        }
-
-        private void InitializeEventHandlers()
-        {
-            c.UI.CreateTriangle.Click += CreateTriangle_Click;
-            c.UI.TrianglePanel.Paint += TrianglePanel_Paint;
+            ((Init_UI)Interface).SetupUI();
+            Interface.CreateTriangle.Click += CreateTriangle_Click;
+            Interface.TrianglePanel.Paint += TrianglePanel_Paint;
+            Controls.Add(Interface.GetMainPanel());
         }
 
         private void CreateTriangle_Click(object sender, EventArgs e)
         {
-            float a = (float)this.c.UI.A_input.Value;
-            float b = (float)this.c.UI.B_input.Value;
-            float c = (float)this.c.UI.C_input.Value;
+            float a = (float)Interface.A_input.Value;
+            float b = (float)Interface.B_input.Value;
+            float c = (float)Interface.C_input.Value;
 
-            this.c.Triangle = new _triangle(a, b, c);
+            triangle = new _triangle(a, b, c);
 
-            if (this.c.Triangle.ExistTriangle)
+            if (triangle.ExistTriangle)
             {
-                this.c.DataManager.DisplayTriangleInfo();
-                this.c.DataManager.SaveDataXML();
-                this.c.UI.TrianglePanel.Invalidate();
+                dataManager.DisplayTriangleInfo(triangle, Interface.TriangleInfoView);
+                dataManager.SaveDataXML(triangle);
+                Interface.TrianglePanel.Invalidate();
             }
             else
             {
-                MessageBox.Show("Треугольник с такими сторонами не может существовать", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Selliste külgedega kolmnurka ei saa eksisteerida", "Viga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void TrianglePanel_Paint(object sender, PaintEventArgs e)
         {
-            if (c.Triangle != null)
+            if (triangle != null)
             {
-                c.Drawer.DrawTriangle(e.Graphics);
+                drawer.DrawTriangle(triangle, Interface, e.Graphics);
             }
         }
     }
 }
+

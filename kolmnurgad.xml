@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Triangles>
+  <Triangle Index="1">
+    <DateTime>2024-11-13 13:55:00</DateTime>
+    <Side_A>3</Side_A>
+    <Side_B>4</Side_B>
+    <Side_C>5</Side_C>
+    <Angle_AB>53,130104</Angle_AB>
+    <Angle_BC>36,869896</Angle_BC>
+    <Angle_AC>90</Angle_AC>
+    <Height_A>4</Height_A>
+    <Height_B>3</Height_B>
+    <Height_C>2,4</Height_C>
+    <Perimeter>12</Perimeter>
+    <Surface>6,00</Surface>
+    <Type>Right</Type>
+  </Triangle>
+</Triangles>

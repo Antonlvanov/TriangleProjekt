@@ -1,45 +1,44 @@
 ﻿using System.Xml;
-using static Triangle.Window;
+using _triangle = Triangle.TriangleObject.Triangle;
 
 namespace Triangle.Interface
 {
-    public class DataManager(Context context)
+    public class DataManager()
     {
-        private readonly Context c = context;
-
-        public void DisplayTriangleInfo()
+        public void DisplayTriangleInfo(_triangle triangle, ListView listView)
         {
-            var triangle = c.Triangle;
-            var listView = c.UI.TriangleInfoView;
-
             if (triangle == null || listView == null)
             {
                 MessageBox.Show("No triangle data available", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-
+            string[] fieldNames = { "Külg A", "Külg B", "Külg C", "Nurk AB", "Nurk BC", "Nurk AC", "Kõrgus A", "Kõrgus B", "Kõrgus C", "Perimeter", "Pindala", "Tüüp" };
             listView.Items.Clear();
-            listView.Items.Add(new ListViewItem(new[] { "Side A", triangle.a.ToString() }));
-            listView.Items.Add(new ListViewItem(new[] { "Side B", triangle.b.ToString() }));
-            listView.Items.Add(new ListViewItem(new[] { "Side C", triangle.c.ToString() }));
-            listView.Items.Add(new ListViewItem(new[] { "Angle AB", $"{triangle._angleAB:F2}°" }));
-            listView.Items.Add(new ListViewItem(new[] { "Angle BC", $"{triangle._angleBC:F2}°" }));
-            listView.Items.Add(new ListViewItem(new[] { "Angle AC", $"{triangle._angleAC:F2}°" }));
-            listView.Items.Add(new ListViewItem(new[] { "Perimeter", $"{triangle._perimeter:F2}" }));
-            listView.Items.Add(new ListViewItem(new[] { "Surface", $"{triangle._surface:F2}" }));
-            listView.Items.Add(new ListViewItem(new[] { "Type", triangle.TypeRusky() }));
+            listView.Items.Add(new ListViewItem(new[] { "Külg A", triangle.outputA() }));
+            listView.Items.Add(new ListViewItem(new[] { "Külg B", triangle.outputB() }));
+            listView.Items.Add(new ListViewItem(new[] { "Külg C", triangle.outputC() }));
+            listView.Items.Add(new ListViewItem(new[] { "Nurk AB", triangle.AngleAB.ToString("F2") + "°" }));
+            listView.Items.Add(new ListViewItem(new[] { "Nurk BC", triangle.AngleBC.ToString("F2") + "°" }));
+            listView.Items.Add(new ListViewItem(new[] { "Nurk AC", triangle.AngleAC.ToString("F2") + "°" }));
+            listView.Items.Add(new ListViewItem(new[] { "Kõrgus A", triangle.heightA.ToString() }));
+            listView.Items.Add(new ListViewItem(new[] { "Kõrgus B", triangle.heightB.ToString() }));
+            listView.Items.Add(new ListViewItem(new[] { "Kõrgus C", triangle.heightC.ToString() }));
+            listView.Items.Add(new ListViewItem(new[] { "Perimeter", triangle.outputP() }));
+            listView.Items.Add(new ListViewItem(new[] { "Pindala", triangle.outputS() }));
+            listView.Items.Add(new ListViewItem(new[] { "Tüüp", triangle.TypeEst() }));
+
         }
 
-        public void SaveDataXML()
+        public void SaveDataXML(_triangle triangle)
         {
-            var triangle = c.Triangle;
             if (triangle == null)
             {
                 MessageBox.Show("No triangle data to save.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            string filePath = @"..\..\..\data.xml";
+            string filePath = @"..\..\..\kolmnurgad.xml";
+
             XmlWriterSettings settings = new XmlWriterSettings
             {
                 Indent = true,
@@ -70,25 +69,38 @@ namespace Triangle.Interface
                 dateTimeElem.InnerText = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                 triangleElem.AppendChild(dateTimeElem);
 
-                string[] fieldNames = { "SideA", "SideB", "SideC", "AngleAB", "AngleBC", "AngleAC", "Perimeter", "Surface", "Type" };
+                string[] fieldNames = { "Side_A", "Side_B", "Side_C", "Angle_AB", "Angle_BC", "Angle_AC", "Height_A", "Height_B", "Height_C", "Perimeter", "Surface", "Type" };
                 object[] fieldValues =
                 {
-                    triangle.a,
-                    triangle.b,
-                    triangle.c,
-                    triangle._angleAB,
-                    triangle._angleBC,
-                    triangle._angleAC,
-                    triangle._perimeter,
-                    triangle._surface,
+                    triangle.outputA(),
+                    triangle.outputB(),
+                    triangle.outputC(),
+                    triangle.AngleAB.ToString(),
+                    triangle.AngleBC.ToString(),
+                    triangle.AngleAC.ToString(),
+                    triangle.heightA.ToString(),
+                    triangle.heightB.ToString(),
+                    triangle.heightC.ToString(),
+                    triangle.outputP(),
+                    triangle.outputS(),
                     triangle.Type
                 };
 
+
+
                 for (int i = 0; i < fieldValues.Length; i++)
                 {
-                    XmlElement fieldElement = doc.CreateElement(fieldNames[i]);
-                    fieldElement.InnerText = fieldValues[i]?.ToString();
-                    triangleElem.AppendChild(fieldElement);
+                    try
+                    {
+                        string fieldValue = fieldValues[i]?.ToString();
+                        XmlElement fieldElement = doc.CreateElement(fieldNames[i]);
+                        fieldElement.InnerText = System.Web.HttpUtility.HtmlEncode(fieldValue);
+                        triangleElem.AppendChild(fieldElement);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error while writing field {fieldNames[i]}: {ex.Message}");
+                    }
                 }
 
                 doc.DocumentElement.AppendChild(triangleElem);
